@@ -1,0 +1,52 @@
+.main-nav {
+  max-width: 100vw;
+  background-color: #8033FF;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); 
+}
+
+.main-title {
+  grid-column: 5/9;
+  color: white;
+  justify-self: center;
+}
+
+.main-menu {
+  grid-column: 1/5;
+}
+
+.main-title h1 {
+  margin: 0;
+}
+
+.mobile-title {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.pageTitle {
+  margin: 0 auto;
+  color: white;
+}
+
+.menu-btn {
+  background-color: rgba(255, 255, 255, 0);
+  padding: 0 1vw;
+  color: #F2F2F2;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  width: 100vw;
+  padding: 10px 0;
+  background-color: #8033FF;
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  bottom: 0;
+}
+
+

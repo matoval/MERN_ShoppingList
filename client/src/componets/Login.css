@@ -1,0 +1,46 @@
+.login {
+  color: white;
+  font-weight: 600;
+  text-align: center;
+}
+
+.login input[type=email], input[type=password] {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  padding-left: 8px;
+}
+
+.login button {
+  background-color: #5A5266;
+  margin: 0 10px;
+  border: none;
+  text-align: center;
+  width: 70px;
+  height: 25px;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#login-btn {
+  background-color: #8033FF;
+}
+
+.login label {
+  font-size: 14px;
+}
+
+.login input {
+  background-color: #5A5266;
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+}
+
+.login-title {
+  margin-top: 10vh;
+}

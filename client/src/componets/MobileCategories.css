@@ -1,0 +1,41 @@
+.mobile-categories-list {
+  color: white;
+  text-align: center;
+}
+
+.mobile-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+
+.addListItem {
+  background-color: #5A5266;
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+  width: 250px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(3, 10px);
+  align-items: center;
+  grid-gap: 0;
+}
+
+.add-btn {
+  margin: 0;
+  grid-column: 2/3;
+  grid-row: 2;
+}
+
+.addListItem input {
+  color: white;
+  background-color: #5A5266;
+  border: none;
+  border-radius: 10px;
+  padding-left: 5px;
+  grid-column: 4/9;
+  grid-row: 2;
+}
