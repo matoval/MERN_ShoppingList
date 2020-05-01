@@ -25,11 +25,11 @@ connection.once('open', () => {
 
 const usersRouter = require('./routes/users')
 const categoryRouter = require('./routes/category')
-const listItemRouter = require('./routes/listItem')
+const listsRouter = require('./routes/lists')
 
 app.use('/users', usersRouter)
 app.use('/category', categoryRouter)
-app.use('/listItem', listItemRouter)
+app.use('/lists', listsRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`)

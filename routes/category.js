@@ -29,19 +29,18 @@ router.route('/:id').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
-router.route('/:id').delete((req, res) => {
-  Category.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Category deleted.'))
+router.route('/delete/:id').post((req, res) => {
+  Category.findOneAndUpdate({creator: req.body.creator}, {$pull: {categoryArray: {_id: req.params.id}}}, {new: true})
+    .then(cat=> res.json(cat))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
 router.route('/update/:id').post((req, res) => {
   const newCategoryItem = {title: req.body.title}
-  Category.findOneAndUpdate({creator: req.params.id}, {$push: {categoryArray: [newCategoryItem]}})
-    .then(() => res.json('Category updated.'))
+  Category.findOneAndUpdate({creator: req.params.id}, {$push: {categoryArray: [newCategoryItem]}}, {new: true})
+    .then(creator => res.json(creator.categoryArray))
     .catch(err => res.status(400).json('Error: ' + err))
-    
 })
 
 module.exports = router

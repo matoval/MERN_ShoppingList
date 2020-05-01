@@ -10,6 +10,13 @@ function Login(props) {
     props.openNextPage('signupPage')
   }
 
+  function handleKeyDown(event) {
+    console.log(event.keyCode)
+    if(event.keyCode === 13) {
+      handleSubmit(event)
+    }
+  }
+
   function handleSubmit(event) {
     event.preventDefault()
     
@@ -29,7 +36,7 @@ function Login(props) {
   }
 
   return (
-    <form className="login" onSubmit={handleSubmit}>
+    <form className="login" onKeyDown={handleKeyDown} onSubmit={handleSubmit}>
       <h3 className="login-title">Login</h3> 
       <label>
         Email:<br />

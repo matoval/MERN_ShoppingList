@@ -39,9 +39,9 @@ function Signup(props) {
               categoryArray: []
             }
             axios.post('http://localhost:5000/category/add', newCategory)
-            .then(res => {
-              console.log(res)
-            })
+              .then(res => {
+                console.log(res)
+              })
           }
         })
     } else {

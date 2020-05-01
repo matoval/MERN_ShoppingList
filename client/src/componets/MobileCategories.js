@@ -1,38 +1,74 @@
 import React, { useState, useEffect } from 'react'
 import './MobileCategories.css'
 import axios from 'axios'
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+
 
 function MobileCategories(props) {
-  const [addCategory, setAddCategory] = useState('Add a category')
-  const [categories, setCategories] = useState([])
+  const [addCategory, setAddCategory] = useState('')
+  const [DbCategoryArray, setDbCategoryArray] = useState([])
+
+  function handleKeyDown(event) {
+    if(event.keyCode === 13) {
+      handleAddClick(event)
+    }
+  }
 
   useEffect(() => {
     axios.get(`http://localhost:5000/category/${props.userId}`)
       .then(res => {
-        const cats = res.data[0].categoryArray
-        for (const cat of cats) {
-          setCategories(prevState => [...prevState, cat.title])
-        }
+        setDbCategoryArray(res.data[0].categoryArray)
       })
   }, [props.userId])
 
   function handleAddClick(event) {
     event.preventDefault()
-    if (addCategory !== 'Add a category'){
-      setCategories(prevState => [...prevState, addCategory])
-    }
-
+    
     const newCategory = {
       title: addCategory
     }
 
-    if (categories){
+    if (addCategory){
       axios.post(`http://localhost:5000/category/update/${props.userId}`, newCategory)
-      .then(res => {
-        console.log(res.data)
-      })
+        .then(res => {
+          if(res.status === 200) {
+            setDbCategoryArray(res.data)
+            setAddCategory('')
+            const newcategoryId = res.data[(res.data.length - 1)]._id
+            const newList = {
+              categoryTitle: newCategory.title,
+              category: newcategoryId,
+              list: [],
+            }
+            console.log(newList)
+            axios.post('http://localhost:5000/lists/add', newList)
+              .then(res => {
+                console.log(res)
+              })
+          }
+        })
     }
+  }
+
+  function handleDeleteClick(event) {
+    const deleteThisItem = event.currentTarget.dataset.value
+    const creator = {creator: props.userId}
+    console.log(deleteThisItem)
+      axios.delete(`http://localhost:5000/lists/${deleteThisItem}`)
+      .then(res => {
+        console.log(res)
+        axios.post(`http://localhost:5000/category/delete/${deleteThisItem}`, creator)
+          .then(res => {
+            setDbCategoryArray(res.data.categoryArray)
+          })
+      })
+  }
+
+  function handleCategoryClick(event) {
+    console.log(event.target.dataset.value)
+    props.setListId(event.target.dataset.value)
+    props.openNextPage('mobileListPage')
   }
 
   return (
@@ -47,14 +83,26 @@ function MobileCategories(props) {
           />
           <input 
             type="text" 
-            onChange={e => setAddCategory(e.target.value)} 
-            value={addCategory}>
+            onChange={e => setAddCategory(e.target.value)}
+            onKeyDown={handleKeyDown} 
+            value={addCategory}
+            placeholder="Add a Category">
           </input>
         </li> 
-        { categories.length !== 0 ? 
-          <ul>
-            {categories.map((categoryItem, index) => (
-            <li key={index}>{categoryItem}</li>
+        { DbCategoryArray.length !== 0 ? 
+          <ul className="cat-list">
+            {DbCategoryArray.map((categoryItem, index) => (
+              <div key={index} className="list-item" value={categoryItem._id}>
+                <DeleteForeverIcon
+                  className="delete-btn" 
+                  onClick={handleDeleteClick} 
+                  style={{fill: 'white'}}
+                  data-value={categoryItem._id}
+                />
+                <li className="list-title" data-value={categoryItem._id} onClick={handleCategoryClick}>
+                  {categoryItem.title}
+                </li>
+              </div>
             ))}
           </ul> 
           : null 
