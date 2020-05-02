@@ -36,6 +36,7 @@ function Signup(props) {
           if (res.status === 200) {
             const newCategory = {
               creator: res.data,
+              sharedWith: [],
               categoryArray: []
             }
             axios.post('http://localhost:5000/category/add', newCategory)

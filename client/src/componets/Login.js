@@ -40,23 +40,23 @@ function Login(props) {
       <h3 className="login-title">Login</h3> 
       <label>
         Email:<br />
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)} 
-        type="email" 
-        name="email" 
-        required 
-      /><br />
+        <input
+          value={email}
+          onChange={e => setEmail(e.target.value)} 
+          type="email" 
+          name="email" 
+          required 
+        /><br />
       </label><br />
       <label>
         Password:<br />
-      <input
-        value={password}
-        onChange={e => setPassword(e.target.value)} 
-        type="password" 
-        name="password" 
-        required 
-      /><br />
+        <input
+          value={password}
+          onChange={e => setPassword(e.target.value)} 
+          type="password" 
+          name="password" 
+          required 
+        /><br />
       </label><br />
       <button value="Signup" onClick={openSignup}>Signup</button>
       <button id="login-btn" type="submit" value="Login">Login</button>

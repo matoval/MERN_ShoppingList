@@ -78,7 +78,7 @@ function App() {
 
   return (
     <div className="App">
-      <Nav isMobile={isMobile} />
+      <Nav isMobile={isMobile} openNextPage={openNextPage} />
       { pages === 'loginPage' ? <Login userId={user.userId} openNextPage={openNextPage} loggedIn={loggedIn} /> : null }
       { pages === 'signupPage' ? <Signup openNextPage={openNextPage} /> : null }
       { pages === 'mobileCategoryPage' ? <MobileCategories {...user} openNextPage={openNextPage} setListId={setListId} /> : null }

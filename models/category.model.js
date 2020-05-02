@@ -7,6 +7,12 @@ const CategorySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user'
   },
+  sharedWith: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'user'
+    }
+  ],
   categoryArray: [
     {
       title: String,

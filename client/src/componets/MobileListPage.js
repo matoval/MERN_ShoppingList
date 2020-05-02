@@ -18,22 +18,52 @@ function MobileListPage(props) {
   }, [props.listId])
 
   function handleKeyDown(event) {
-    console.log(event.keyCode)
     if(event.keyCode === 13) {
       handleAddClick(event)
     }
   }
 
-  function handleAddClick() {
+  function handleAddClick(event) {
+    event.preventDefault()
+
+    const newList = {
+      title: addItem,
+      isChecked: false
+    }
+
+    if (addItem) {
+      axios.post(`http://localhost:5000/lists/update/${props.listId}`, newList)
+        .then(res => {
+          if (res.status === 200) {
+            setListArray(res.data)
+            setAddItem('')
+          }
+        })
+    }
 
   }
 
-  function handleDeleteClick() {
+  function handleDeleteClick(event) {
+    const deleteThisListItem = event.currentTarget.dataset.value
+    const category = {category: props.listId}
 
+    axios.post(`http://localhost:5000/lists/delete/${deleteThisListItem}`, category)
+      .then(res => {
+        setListArray(res.data.list)
+      })
   }
 
-  function handleItemClick() {
-
+  function handleItemClick(event) {
+    const clickedItem = event.target.dataset.value
+    const sendData = {
+      category: props.listId,
+      isTrue: !(event.target.className).includes('checked')
+    } 
+      
+    axios.post(`http://localhost:5000/lists/updatechecked/${clickedItem}`, sendData)
+      .then(res => {
+        setListArray(res.data.list)
+      })
   }
 
   return(
@@ -55,17 +85,20 @@ function MobileListPage(props) {
         </input>
       </li> 
       { listArray.length !== 0 ? 
-        <ul className="cat-list">
-          {listArray.map((categoryItem, index) => (
-            <div key={index} className="list-item" value={categoryItem._id}>
+        <ul className="list-items">
+          {listArray.map((listItem, index) => (
+            <div key={index} className="list-item" value={listItem._id}>
               <DeleteForeverIcon
-                className="delete-btn" 
+                className="delete-btn"
                 onClick={handleDeleteClick} 
                 style={{fill: 'white'}}
-                data-value={categoryItem._id}
+                data-value={listItem._id}
               />
-              <li className="list-title" data-value={categoryItem._id} onClick={handleItemClick}>
-                {categoryItem.title}
+              <li 
+                className={listItem.isChecked ? 'list-title checked' : 'list-title'}  
+                data-value={listItem._id} 
+                onClick={handleItemClick}>
+                {listItem.title}
               </li>
             </div>
           ))}

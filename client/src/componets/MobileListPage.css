@@ -1,0 +1,87 @@
+.mobile-list-page {
+  color: white;
+  text-align: center;
+  overflow-y: scroll;
+  margin-bottom: 60px;
+  font-weight: 500;
+}
+
+.mobile-list {
+  list-style: none;
+  display: grid;
+  justify-content: center;
+  padding: 0;
+}
+
+
+.addListItem {
+  background-color: #8033FF;
+  border: none;
+  border-radius: 10px;
+  height: 35px;
+  width: 250px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(3, 10px);
+  align-items: center;
+  grid-gap: 0;
+}
+
+.add-btn {
+  margin: 0;
+  grid-column: 2/3;
+  grid-row: 2;
+}
+
+.addListItem input {
+  color: white;
+  background-color: #8033FF;
+  border: none;
+  border-radius: 10px;
+  padding-left: 3px;
+  grid-column: 4/9;
+  grid-row: 2;
+}
+
+.list-items {
+  list-style: none;
+  padding: 0;
+  width: 250px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  grid-gap: 0;
+  margin-top: 10px;
+}
+
+.delete-btn {
+  margin: 0;
+  grid-column: 2/3;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.list-title {
+  grid-column: 3/10;
+  margin-left: 10px;
+  padding-top: 4px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.list-item {
+  height: 30px;
+  width: 250px;
+  color: white;
+  background-color: #5A5266;
+  border: none;
+  border-radius: 10px;
+  margin: 8px 0;
+  grid-template-columns: repeat(10, 1fr);
+  display: grid;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: rgb(207, 204, 204);
+}

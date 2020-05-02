@@ -31,22 +31,26 @@ router.route('/:id').get((req, res) => {
 
 router.route('/:id').delete((req, res) => {
   List.findOneAndDelete({category: req.params.id})
-    .then(() => res.json('List deleted'))
+    .then(() => res.json('List deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err))
+})
+
+router.route('/delete/:id').post((req, res) => {
+  List.findOneAndUpdate({category: req.body.category}, {$pull: {list: {_id: req.params.id}}}, {new: true})
+    .then(cat=> res.json(cat))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
 router.route('/update/:id').post((req, res) => {
-  List.findById(req.params.id)
-    .then(listItem => {
-      listItem.user = req.body.user
-      listItem.category = req.body.category
-      listItem.title = req.body.title
-      listItem.isChecked = req.body.isChecked
+  const newListItem = {title: req.body.title, isChecked: false}
+  List.findOneAndUpdate({category: req.params.id}, {$push: {list: [newListItem]}}, {new: true})
+    .then(category => res.json(category.list))
+    .catch(err => res.status(400).json('Error: ' + err))
+})
 
-      listItem.save()
-        .then(() => res.json('List item updated!'))
-        .catch(err => res.status(400).json('Error: ' + err))
-    })
+router.route('/updatechecked/:id').post((req, res) => {
+  List.findOneAndUpdate({category: {_id: req.body.category}, "list._id": req.params.id}, {"list.$.isChecked": req.body.isTrue}, {new: true})
+    .then(category => res.json(category))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 

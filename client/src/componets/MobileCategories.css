@@ -6,7 +6,7 @@
   font-weight: 500;
 }
 
-.mobile-list {
+.mobile-categories {
   list-style: none;
   display: grid;
   justify-content: center;
@@ -14,7 +14,7 @@
 }
 
 
-.addListItem {
+.add-categories-item {
   background-color: #8033FF;
   border: none;
   border-radius: 10px;
@@ -33,7 +33,7 @@
   grid-row: 2;
 }
 
-.addListItem input {
+.add-categories-item input {
   color: white;
   background-color: #8033FF;
   border: none;
@@ -43,7 +43,7 @@
   grid-row: 2;
 }
 
-.cat-list {
+.categories-items {
   list-style: none;
   padding: 0;
   width: 250px;
@@ -61,7 +61,7 @@
   cursor: pointer;
 }
 
-.list-title {
+.categories-title {
   grid-column: 3/10;
   margin-left: 10px;
   padding-top: 4px;
@@ -69,7 +69,7 @@
   cursor: pointer;
 }
 
-.list-item {
+.categories-item {
   height: 30px;
   width: 250px;
   color: white;
