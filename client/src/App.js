@@ -63,7 +63,7 @@ function App() {
   }, [user.userId, isMobile])
 
   useEffect(() => {
-    axios.get('https://mern-shopping-list-matoval.herokuapp.com/users/stayloggedin', { withCredentials: true} )
+    axios.get('/users/stayloggedin', { withCredentials: true} )
     .then(res => {
       if (res.data === 'No Authentication'){
         console.log(res.data)

@@ -9,10 +9,21 @@ require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 5000
 
+const allowedOrigins = ['http://localhost:3000/', 'http://localhost:5000/', 'https://mern-shopping-list-matoval.herokuapp.com/']
+                      
 app.use(cors({
-  origin: 'https://mern-shopping-list-matoval.herokuapp.com/' || 'http://localhost:3000',
-  credentials: true
-}))
+  origin: function(origin, callback){  
+    if(!origin) return callback(null, true)
+
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }    
+    return callback(null, true);
+  }
+}));
+
 app.use(cookieParser())
 app.use(express.json())
 
