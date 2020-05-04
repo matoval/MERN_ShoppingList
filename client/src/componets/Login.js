@@ -27,8 +27,8 @@ function Login(props) {
 
     axios.post('http://localhost:5000/users/login', user, { withCredentials: true} )
       .then(res => {
-        if (res.data === 'No user found' || res.data === 'Incorrect password'){
-          alert(res.data)
+        if (res.data === 'Authentication failed' || res.data === 'Authentication failed'){
+          alert('Authentication failed')
         } else {
           props.loggedIn(res.data)
         }

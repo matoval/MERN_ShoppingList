@@ -9,7 +9,8 @@ import ShareModal from './ShareModal'
 
 function MobileCategories(props) {
   const [addCategory, setAddCategory] = useState('')
-  const [DbCategoryArray, setDbCategoryArray] = useState([])
+  const [listTitleArray, setListTitleArray] = useState([])
+  const [sharedList, setSharedList] = useState([])
   const [openModal, setOpenModal] = useState(false)
   const [sendProps, setSendProps] = useState('')
 
@@ -20,9 +21,14 @@ function MobileCategories(props) {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/category/${props.userId}`)
+    axios.get(`http://localhost:5000/lists/searchcreator/${props.userId}`)
       .then(res => {
-        setDbCategoryArray(res.data[0].categoryArray)
+        setListTitleArray(res.data)
+      })
+    axios.get(`http://localhost:5000/lists/getsharedlists/${props.userId}`)
+      .then(res => {
+        console.log(res)
+        setSharedList(res.data)
       })
   }, [props.userId])
 
@@ -30,41 +36,48 @@ function MobileCategories(props) {
     event.preventDefault()
     
     const newCategory = {
-      title: addCategory
+      title: addCategory,
+      sharedWith: []
     }
 
     if (addCategory) {
-      axios.post(`http://localhost:5000/category/update/${props.userId}`, newCategory)
+      const newList = {
+        categoryTitle: newCategory.title,
+        creator: props.userId,
+        sharedWith: [],
+        list: []
+      }
+      console.log(newList)
+      axios.post('http://localhost:5000/lists/add', newList)
         .then(res => {
-          if (res.status === 200) {
-            setDbCategoryArray(res.data)
-            setAddCategory('')
-            const newcategoryId = res.data[(res.data.length - 1)]._id
-            const newList = {
-              categoryTitle: newCategory.title,
-              category: newcategoryId,
-              list: [],
-            }
-            console.log(newList)
-            axios.post('http://localhost:5000/lists/add', newList)
-              .then(res => {
-                console.log(res)
-              })
-          }
+          axios.get(`http://localhost:5000/lists/searchcreator/${props.userId}`)
+          .then(res => {
+            setListTitleArray(res.data)
+          })
+          setAddCategory('')
         })
     }
   }
 
   function handleDeleteClick(event) {
     const deleteThisItem = event.currentTarget.dataset.value
-    const creator = {creator: props.userId}
     axios.delete(`http://localhost:5000/lists/${deleteThisItem}`)
     .then(res => {
-      axios.post(`http://localhost:5000/category/delete/${deleteThisItem}`, creator)
-        .then(res => {
-          setDbCategoryArray(res.data.categoryArray)
-        })
+      axios.get(`http://localhost:5000/lists/searchcreator/${props.userId}`)
+      .then(res => {
+        setListTitleArray(res.data)
+      })
     })
+  }
+
+  function handleDeleteSharedClick(event) {
+    const deleteThisSharedItem = event.currentTarget.dataset.value
+    const user = props.userId
+    console.log(deleteThisSharedItem, user)
+    axios.post(`http://localhost:5000/lists/removesharedlist/${deleteThisSharedItem}`, user)
+      .then(res => {
+        setSharedList(res.data.sharedWith)
+      })
   }
 
   function handleCategoryClick(event) {
@@ -72,14 +85,14 @@ function MobileCategories(props) {
     props.openNextPage('mobileListPage')
   }
 
-  function handleShareClick(categoryItem) {
-    setSendProps(categoryItem)
+  function handleShareClick(list) {
+    setSendProps(list)
     setOpenModal(true)
   }
 
   return (
     <div>
-      { openModal ? <ShareModal categoryItem={sendProps}/> : null}
+      { openModal ? <ShareModal listItem={sendProps} setOpenModal={setOpenModal} /> : null}
       { !openModal ? 
         <div className="mobile-categories-list">
           <h3 className="mobile-categories-title">{props.displayName}'s Categories</h3>
@@ -98,29 +111,50 @@ function MobileCategories(props) {
                 placeholder="Add a Category">
               </input>
             </li> 
-            { DbCategoryArray.length !== 0 ? 
+            { listTitleArray.length !== 0 ? 
               <ul className="categories-items">
-                {DbCategoryArray.map((categoryItem, index) => (
-                  <div key={index} className="categories-item" value={categoryItem._id}>
+                <h4>My Categories</h4>
+                {listTitleArray.map((listTitle, index) => (
+                  <div key={index} className="categories-item" value={listTitle._id}>
                     <DeleteForeverIcon
                       className="delete-btn" 
                       onClick={handleDeleteClick} 
                       style={{fill: 'white'}}
-                      data-value={categoryItem._id}
+                      data-value={listTitle._id}
                     />
-                    <li className="categories-title" data-value={categoryItem._id} onClick={handleCategoryClick}>
-                      {categoryItem.title}
+                    <li className="categories-title" data-value={listTitle._id} onClick={handleCategoryClick}>
+                      {listTitle.categoryTitle}
                     </li>
                     <MobileScreenShareIcon 
                       className="share-btn"
-                      onClick={() => handleShareClick(categoryItem)}
+                      onClick={() => handleShareClick(listTitle)}
                       style={{fill: 'white'}}
-                      data-value={categoryItem._id}
+                      data-value={listTitle._id}
                     />
                   </div>
                 ))}
               </ul> 
               : null 
+            }
+            { sharedList.length !== 0 ?
+              <ul className="categories-items">
+                <h4>Shared Categories</h4>
+                {sharedList.map((shared, index) => (
+                  <div key={index} className="categories-item" value={shared._id}>
+                  <DeleteForeverIcon
+                    className="delete-btn" 
+                    onClick={handleDeleteSharedClick} 
+                    style={{fill: 'white'}}
+                    data-value={shared._id}
+                  />
+                  <li className="categories-title" data-value={shared._id} onClick={handleCategoryClick}>
+                    {shared.categoryTitle}
+                  </li>
+                </div>
+                ))}
+
+              </ul> 
+            : null
             }
           </ul>
         </div>

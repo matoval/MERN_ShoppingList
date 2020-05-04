@@ -4,11 +4,20 @@ const Schema = mongoose.Schema
 
 const ListSchema = new Schema({
   categoryTitle: String,
-  category:
+  creator:
   {
       type: Schema.Types.ObjectId,
-      ref: 'Category'
+      ref: 'user'
   },
+  sharedWith: [
+    {
+      sharedUser: 
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+      }
+    },
+  ],
   list: [
     {
       title: String,

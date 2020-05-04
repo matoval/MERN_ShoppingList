@@ -1,7 +1,6 @@
 import React from 'react'
 import './Nav.css'
 import FolderIcon from '@material-ui/icons/Folder'
-import MobileScreenShareIcon from '@material-ui/icons/MobileScreenShare'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 function Nav(props) {
@@ -14,7 +13,6 @@ function Nav(props) {
       <div className="main-nav">
         <div className="main-menu">
           <button className="menu-btn"><FolderIcon style={{fill: 'white'}} /><br />Categories</button>
-          <button className="menu-btn"><MobileScreenShareIcon style={{fill: 'white'}} /><br />Share</button>
           <button className="menu-btn"><AccountBoxIcon style={{fill: 'white'}} /><br />Account</button>
         </div>
         <div className="main-title">
@@ -28,7 +26,6 @@ function Nav(props) {
         <div className="mobile-nav">
           <div className="mobile-menu">
             <button className="menu-btn" onClick={e => handleClick('mobileCategoryPage')}><FolderIcon style={{fill: 'white'}} /><br />Categories</button>
-            <button className="menu-btn" onClick={e => handleClick('sharePage')}><MobileScreenShareIcon style={{fill: 'white'}} /><br />Share</button>
             <button className="menu-btn" onClick={e => handleClick('accountPage')}><AccountBoxIcon style={{fill: 'white'}} /><br />Account</button>
           </div>
           <div className="mobile-title">

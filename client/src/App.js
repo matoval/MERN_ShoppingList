@@ -5,9 +5,12 @@ import Login from './componets/Login'
 import Signup from './componets/Signup'
 import MobileCategories from './componets/MobileCategories'
 import MobileListPage from './componets/MobileListPage'
+import Account from './componets/Account'
 import axios from 'axios'
 
 function App() {
+  const [pages, setPages] = useState('')
+  const [listId, setListId] = useState('')
   const [isMobile, setIsMobile] = useState(function getInitialState() {
     const windowIsMobile = (window.innerWidth < 700)
     return windowIsMobile
@@ -17,8 +20,6 @@ function App() {
     displayName: null,
     userEmail: null
   })
-  const [pages, setPages] = useState('')
-  const [listId, setListId] = useState('')
 
   function loggedIn(data) {
     setUser(prevState => {
@@ -83,6 +84,7 @@ function App() {
       { pages === 'signupPage' ? <Signup openNextPage={openNextPage} /> : null }
       { pages === 'mobileCategoryPage' ? <MobileCategories {...user} openNextPage={openNextPage} setListId={setListId} /> : null }
       { pages === 'mobileListPage' ? <MobileListPage {...user} openNextPage={openNextPage} listId={listId} /> : null }
+      { pages === 'accountPage' ? <Account {...user} /> : null }
     </div>
   )
 }

@@ -54,7 +54,7 @@ router.route('/login').post((req, res) => {
   User.findOne({email: email})
     .then(user => {
       if(!user) {
-        res.json('Authentication failed')
+        res.status(400).json('Authentication failed')
       } else {
         bcrypt.compare(password, user.hashPW, (err, result) => {
           if (result === true) {
@@ -66,7 +66,7 @@ router.route('/login').post((req, res) => {
             res.cookie('accessToken', accessToken, { maxAge:  9000000, httpOnly: true })
             res.status(200).send({userId: user._id})
           } else {
-            res.json('Authentication failed')
+            res.status(400).json('Authentication failed')
           }
         })
       }
@@ -113,18 +113,28 @@ router.route('/update/:id').post((req, res) => {
       bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
             hashPW = hash
-        });
+
+            user.displayName = req.body.displayName
+            user.email = req.body.email
+            user.hashPW = hashPW
+            
+            user.save()
+              .then(user => res.status(200).json(user))
+              .catch(err => res.status(400).json('Error: ' + err))
+          });
       });
 
-      user.displayName = req.body.displayName
-      user.email = req.body.email
-      user.hashPW = req.body.password
-
-      user.save()
-        .then(() => res.json('User updated!'))
-        .catch(err => res.status(400).json('Error: ' + err))
     })
     .catch(err => res.status(400).json('Error: ' + err))
+})
+
+router.route('/getuser/:id').get((req, res) => {
+  User.findOne({email: req.params.id})
+  .select("-hashPW")
+  .then(user => res.json({
+    user
+  }))
+  .catch(err => res.status(400).json('Error: ' + err))
 })
 
 module.exports = router

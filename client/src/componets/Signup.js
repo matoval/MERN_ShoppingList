@@ -30,9 +30,10 @@ function Signup(props) {
         email,
         password
       }
-  
+      console.log(user)
       axios.post('http://localhost:5000/users/add', user)
         .then(res => {
+          console.log(res)
           if (res.status === 200) {
             const newCategory = {
               creator: res.data,

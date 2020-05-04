@@ -1,0 +1,28 @@
+.account-page {
+  color: white;
+  text-align: center;
+  overflow-y: scroll;
+  margin-bottom: 60px;
+  font-weight: 500;
+}
+
+.account-page input {
+  color: black;
+  background-color: white;
+  border: none;
+  height: 35px;
+  width: 250px;
+  border-radius: 10px;
+  padding-left: 3px;
+  margin: 8px;
+}
+
+.account-page button {
+  height: 25px;
+  font-weight: 500;
+  color: white;
+  background-color: #8033FF;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+}

@@ -45,7 +45,7 @@ function MobileListPage(props) {
 
   function handleDeleteClick(event) {
     const deleteThisListItem = event.currentTarget.dataset.value
-    const category = {category: props.listId}
+    const category = props.listId
 
     axios.post(`http://localhost:5000/lists/delete/${deleteThisListItem}`, category)
       .then(res => {

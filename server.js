@@ -24,11 +24,9 @@ connection.once('open', () => {
 })
 
 const usersRouter = require('./routes/users')
-const categoryRouter = require('./routes/category')
 const listsRouter = require('./routes/lists')
 
 app.use('/users', usersRouter)
-app.use('/category', categoryRouter)
 app.use('/lists', listsRouter)
 
 app.listen(port, () => {

@@ -37,6 +37,7 @@
   color: white;
   background-color: #8033FF;
   border: none;
+  width: 165px;
   border-radius: 10px;
   padding-left: 3px;
   grid-column: 4/9;
@@ -58,6 +59,12 @@
   margin: 0;
   grid-column: 2/3;
   padding: 2px;
+  cursor: pointer;
+}
+
+.share-btn {
+  margin-top: 2px;
+  margin-right: 5px;
   cursor: pointer;
 }
 

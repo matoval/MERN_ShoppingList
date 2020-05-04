@@ -1,3 +1,7 @@
+h4 {
+  margin: 5px 0 0 0;
+}
+
 .mobile-list-page {
   color: white;
   text-align: center;
@@ -39,6 +43,7 @@
   border: none;
   border-radius: 10px;
   padding-left: 3px;
+  width: 165px;
   grid-column: 4/9;
   grid-row: 2;
 }
