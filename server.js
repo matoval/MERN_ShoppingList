@@ -10,7 +10,7 @@ const app = express()
 const port = process.env.PORT || 5000
 
 app.use(cors({
-  origin: 'https://mern-shopping-list-matoval.herokuapp.com/',
+  origin: 'https://mern-shopping-list-matoval.herokuapp.com/' || 'http://localhost:3000',
   credentials: true
 }))
 app.use(cookieParser())
