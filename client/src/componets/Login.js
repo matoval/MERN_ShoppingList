@@ -25,7 +25,7 @@ function Login(props) {
       password
     }
 
-    axios.post('https://mern-shopping-list-matoval.herokuapp.com/users/login', user, { withCredentials: true} )
+    axios.post('/users/login', user, { withCredentials: true} )
       .then(res => {
         if (res.data === 'Authentication failed' || res.data === 'Authentication failed'){
           alert('Authentication failed')
