@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
     if(user.userId != null) {
-      axios.get(`http://localhost:5000/users/${user.userId}`)
+      axios.get(`https://mern-shopping-list-matoval.herokuapp.com/users/${user.userId}`)
       .then(res => {
         setUser(prevState => {
           return{...prevState, displayName: res.data.user.displayName}
@@ -63,7 +63,7 @@ function App() {
   }, [user.userId, isMobile])
 
   useEffect(() => {
-    axios.get('http://localhost:5000/users/stayloggedin', { withCredentials: true} )
+    axios.get('https://mern-shopping-list-matoval.herokuapp.com/users/stayloggedin', { withCredentials: true} )
     .then(res => {
       if (res.data === 'No Authentication'){
         console.log(res.data)

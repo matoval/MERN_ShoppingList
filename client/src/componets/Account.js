@@ -13,7 +13,7 @@ function Account(props) {
     setAccountDisplayName(props.displayName)
     setAccountUserEmail(props.userEmail)
 
-    axios.get(`http://localhost:5000/lists/searchcreator/${props.userId}`)
+    axios.get(`https://mern-shopping-list-matoval.herokuapp.com/lists/searchcreator/${props.userId}`)
       .then(res => {
         console.log(res)
       })
@@ -27,7 +27,7 @@ function Account(props) {
         password: accountUserPassword
       }
       console.log(sendData)
-      axios.post('http://localhost:5000/users/login', sendData)
+      axios.post('https://mern-shopping-list-matoval.herokuapp.com/users/login', sendData)
         .then(res => {
           console.log(res)
           if ( res.status === 200) {
@@ -37,7 +37,7 @@ function Account(props) {
                 password: accountUserNewPassword,
                 displayName: accountDisplayName
               }
-              axios.post(`http://localhost:5000/users/update/${props.userId}`, changeAccountData)
+              axios.post(`https://mern-shopping-list-matoval.herokuapp.com/users/update/${props.userId}`, changeAccountData)
                 .then(res =>{
                   console.log(res)
                 })
@@ -47,7 +47,7 @@ function Account(props) {
                 password: accountUserPassword,
                 displayName: accountDisplayName
               }
-              axios.post(`http://localhost:5000/users/update/${props.userId}`, changeAccountData)
+              axios.post(`https://mern-shopping-list-matoval.herokuapp.com/users/update/${props.userId}`, changeAccountData)
                 .then(res =>{
                   console.log(res)
                 })

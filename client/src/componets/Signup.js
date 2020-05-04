@@ -31,7 +31,7 @@ function Signup(props) {
         password
       }
       console.log(user)
-      axios.post('http://localhost:5000/users/add', user)
+      axios.post('https://mern-shopping-list-matoval.herokuapp.com/users/add', user)
         .then(res => {
           console.log(res)
           if (res.status === 200) {
@@ -40,7 +40,7 @@ function Signup(props) {
               sharedWith: [],
               categoryArray: []
             }
-            axios.post('http://localhost:5000/category/add', newCategory)
+            axios.post('https://mern-shopping-list-matoval.herokuapp.com/category/add', newCategory)
               .then(res => {
                 console.log(res)
               })

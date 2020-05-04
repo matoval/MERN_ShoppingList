@@ -10,7 +10,7 @@ function MobileListPage(props) {
   const [addItem, setAddItem] = useState('')
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/lists/${props.listId}`)
+    axios.get(`https://mern-shopping-list-matoval.herokuapp.com/lists/${props.listId}`)
     .then(res => {
       setListArray(res.data.list)
       setListTitle(res.data.categoryTitle)
@@ -32,7 +32,7 @@ function MobileListPage(props) {
     }
 
     if (addItem) {
-      axios.post(`http://localhost:5000/lists/update/${props.listId}`, newList)
+      axios.post(`https://mern-shopping-list-matoval.herokuapp.com/lists/update/${props.listId}`, newList)
         .then(res => {
           if (res.status === 200) {
             setListArray(res.data)
@@ -47,7 +47,7 @@ function MobileListPage(props) {
     const deleteThisListItem = event.currentTarget.dataset.value
     const category = props.listId
 
-    axios.post(`http://localhost:5000/lists/delete/${deleteThisListItem}`, category)
+    axios.post(`https://mern-shopping-list-matoval.herokuapp.com/lists/delete/${deleteThisListItem}`, category)
       .then(res => {
         setListArray(res.data.list)
       })
@@ -60,7 +60,7 @@ function MobileListPage(props) {
       isTrue: !(event.target.className).includes('checked')
     } 
       
-    axios.post(`http://localhost:5000/lists/updatechecked/${clickedItem}`, sendData)
+    axios.post(`https://mern-shopping-list-matoval.herokuapp.com/lists/updatechecked/${clickedItem}`, sendData)
       .then(res => {
         setListArray(res.data.list)
       })
