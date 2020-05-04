@@ -16,12 +16,16 @@ app.use(cors({
 app.use(cookieParser())
 app.use(express.json())
 
-const uri = config.get('mongoURI')
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false })
+// const uri = config.get('mongoURI')
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false })
 const connection = mongoose.connection
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully")
 })
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'))
+}
 
 const usersRouter = require('./routes/users')
 const listsRouter = require('./routes/lists')
