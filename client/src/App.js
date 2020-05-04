@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {
     if(user.userId != null) {
-      axios.get(`https://mern-shopping-list-matoval.herokuapp.com/users/${user.userId}`)
+      axios.get(`/users/${user.userId}`)
       .then(res => {
         setUser(prevState => {
           return{...prevState, displayName: res.data.user.displayName}

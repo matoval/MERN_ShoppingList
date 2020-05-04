@@ -21,11 +21,11 @@ function MobileCategories(props) {
   }
 
   useEffect(() => {
-    axios.get(`https://mern-shopping-list-matoval.herokuapp.com/lists/searchcreator/${props.userId}`)
+    axios.get(`/lists/searchcreator/${props.userId}`)
       .then(res => {
         setListTitleArray(res.data)
       })
-    axios.get(`https://mern-shopping-list-matoval.herokuapp.com/lists/getsharedlists/${props.userId}`)
+    axios.get(`/lists/getsharedlists/${props.userId}`)
       .then(res => {
         console.log(res)
         setSharedList(res.data)
@@ -48,9 +48,9 @@ function MobileCategories(props) {
         list: []
       }
       console.log(newList)
-      axios.post('https://mern-shopping-list-matoval.herokuapp.com/lists/add', newList)
+      axios.post('/lists/add', newList)
         .then(res => {
-          axios.get(`https://mern-shopping-list-matoval.herokuapp.com/lists/searchcreator/${props.userId}`)
+          axios.get(`/lists/searchcreator/${props.userId}`)
           .then(res => {
             setListTitleArray(res.data)
           })
@@ -61,9 +61,9 @@ function MobileCategories(props) {
 
   function handleDeleteClick(event) {
     const deleteThisItem = event.currentTarget.dataset.value
-    axios.delete(`https://mern-shopping-list-matoval.herokuapp.com/lists/${deleteThisItem}`)
+    axios.delete(`/lists/${deleteThisItem}`)
     .then(res => {
-      axios.get(`https://mern-shopping-list-matoval.herokuapp.com/lists/searchcreator/${props.userId}`)
+      axios.get(`/lists/searchcreator/${props.userId}`)
       .then(res => {
         setListTitleArray(res.data)
       })
@@ -74,7 +74,7 @@ function MobileCategories(props) {
     const deleteThisSharedItem = event.currentTarget.dataset.value
     const user = props.userId
     console.log(deleteThisSharedItem, user)
-    axios.post(`https://mern-shopping-list-matoval.herokuapp.com/lists/removesharedlist/${deleteThisSharedItem}`, user)
+    axios.post(`/lists/removesharedlist/${deleteThisSharedItem}`, user)
       .then(res => {
         setSharedList(res.data.sharedWith)
       })

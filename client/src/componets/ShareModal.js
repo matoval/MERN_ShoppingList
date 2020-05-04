@@ -8,21 +8,21 @@ function ShareModal(props) {
   function handleSubmit(event) {
     event.preventDefault()
     console.log(emailToShare)
-    axios.get(`https://mern-shopping-list-matoval.herokuapp.com/users/getuser/${emailToShare}`)
+    axios.get(`/users/getuser/${emailToShare}`)
       .then(res => {
         console.log(res)
         console.log(props)
         const sharedUsersId = {sharedUser: res.data.user._id}
         const creatorId = props.listItem._id
         console.log(sharedUsersId, creatorId)
-        axios.get(`https://mern-shopping-list-matoval.herokuapp.com/lists/getlist/${creatorId}`)
+        axios.get(`/lists/getlist/${creatorId}`)
           .then(res => {
             console.log(res.data.sharedWith)
             const sharedWithArray = res.data.sharedWith
             console.log(!sharedWithArray.includes(sharedUsersId))
             if (!sharedWithArray.includes(sharedUsersId)) {
               console.log(sharedUsersId)
-              axios.post(`https://mern-shopping-list-matoval.herokuapp.com/lists/updatesharelist/${creatorId}`, sharedUsersId)
+              axios.post(`/lists/updatesharelist/${creatorId}`, sharedUsersId)
                 .then(res => {
                   console.log(res)
                   if (res.status === 200) {
