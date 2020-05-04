@@ -77,7 +77,7 @@ router.route('/login').post((req, res) => {
 router.route('/stayloggedin').get((req, res) => {
   getAccess = req.cookies.accessToken
   if (getAccess !== undefined) {
-    const decoded = jwt.verify(getAccess, process.env.jwtAccessSecret)
+    const decoded = jwt.verify(getAccess, process.env.JWT_ACCESS_SECRET)
     User.findById(decoded.userId)
       .select("-hashPW")
       .then(data => res.json({

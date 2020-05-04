@@ -1,9 +1,9 @@
-const config = require('config')
+// const config = require('config')
 const jwt = require('jsonwebtoken')
 
 function makeRefreshToken(user) {
   const payload = { userId: user._id, expiresIn: "7d" }
-  const secret = (config.get("jwtRefreshSecret") + user.hashPW)
+  const secret = (process.env.JWT_REFRESH_SECRET + user.hashPW)
   const refreshToken = jwt.sign(payload, secret)
 
   return refreshToken
