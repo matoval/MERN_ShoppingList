@@ -5,7 +5,7 @@ const authAccess = require('../middleware/authAccess.middle')
 const authRefresh = require('../middleware/authRefresh.middle')
 const makeAccessToken = require('../middleware/createAccessToken.middle')
 const makeRefreshToken = require('../middleware/createRefreshToken.middle')
-const config = require('config')
+// const config = require('config')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -77,7 +77,7 @@ router.route('/login').post((req, res) => {
 router.route('/stayloggedin').get((req, res) => {
   getAccess = req.cookies.accessToken
   if (getAccess !== undefined) {
-    const decoded = jwt.verify(getAccess, config.get('jwtAccessSecret'))
+    const decoded = jwt.verify(getAccess, process.env.jwtAccessSecret)
     User.findById(decoded.userId)
       .select("-hashPW")
       .then(data => res.json({
