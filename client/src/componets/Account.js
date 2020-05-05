@@ -17,6 +17,13 @@ function Account(props) {
       .then(res => {
         console.log(res)
       })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
+      })
   },[props])
 
   function handleSubmit(event) {
@@ -41,6 +48,13 @@ function Account(props) {
                 .then(res =>{
                   console.log(res)
                 })
+                .catch(error => {
+                  console.log({
+                    error, 
+                    'error status': error.response.status, 
+                    'error response': error.response.data
+                  })
+                })
             } else {
               const changeAccountData = {
                 email: accountUserEmail,
@@ -51,8 +65,22 @@ function Account(props) {
                 .then(res =>{
                   console.log(res)
                 })
+                .catch(error => {
+                  console.log({
+                    error, 
+                    'error status': error.response.status, 
+                    'error response': error.response.data
+                  })
+                })
             }
           }
+        })
+        .catch(error => {
+          console.log({
+            error, 
+            'error status': error.response.status, 
+            'error response': error.response.data
+          })
         })
     }
   }

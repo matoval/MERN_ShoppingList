@@ -15,6 +15,13 @@ function MobileListPage(props) {
       setListArray(res.data.list)
       setListTitle(res.data.categoryTitle)
     })
+    .catch(error => {
+      console.log({
+        error, 
+        'error status': error.response.status, 
+        'error response': error.response.data
+      })
+    })
   }, [props.listId])
 
   function handleKeyDown(event) {
@@ -39,6 +46,13 @@ function MobileListPage(props) {
             setAddItem('')
           }
         })
+        .catch(error => {
+          console.log({
+            error, 
+            'error status': error.response.status, 
+            'error response': error.response.data
+          })
+        })
     }
 
   }
@@ -50,6 +64,13 @@ function MobileListPage(props) {
     axios.post(`/lists/delete/${deleteThisListItem}`, category)
       .then(res => {
         setListArray(res.data.list)
+      })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
       })
   }
 
@@ -63,6 +84,13 @@ function MobileListPage(props) {
     axios.post(`/lists/updatechecked/${clickedItem}`, sendData)
       .then(res => {
         setListArray(res.data.list)
+      })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
       })
   }
 

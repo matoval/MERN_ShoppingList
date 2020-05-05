@@ -29,8 +29,29 @@ function ShareModal(props) {
                     props.setOpenModal(false)
                   }
                 })
+                .catch(error => {
+                  console.log({
+                    error, 
+                    'error status': error.response.status, 
+                    'error response': error.response.data
+                  })
+                })
             }
           })
+          .catch(error => {
+            console.log({
+              error, 
+              'error status': error.response.status, 
+              'error response': error.response.data
+            })
+          })
+      })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
       })
   }
 

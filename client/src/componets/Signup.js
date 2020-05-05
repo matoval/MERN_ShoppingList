@@ -44,7 +44,21 @@ function Signup(props) {
               .then(res => {
                 console.log(res)
               })
+              .catch(error => {
+                console.log({
+                  error, 
+                  'error status': error.response.status, 
+                  'error response': error.response.data
+                })
+              })
           }
+        })
+        .catch(error => {
+          console.log({
+            error, 
+            'error status': error.response.status, 
+            'error response': error.response.data
+          })
         })
     } else {
       alert('Password and Retype Password does not match')

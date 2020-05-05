@@ -49,6 +49,13 @@ function App() {
           return {...prevState, userEmail: res.data.user.email}
         })
       })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
+      })
     }
   }, [user.userId])
 
@@ -70,6 +77,13 @@ function App() {
       } else {
         loggedIn(res.data)
       }
+    })
+    .catch(error => {
+      console.log({
+        error, 
+        'error status': error.response.status, 
+        'error response': error.response.data
+      })
     })
   }, [])
 

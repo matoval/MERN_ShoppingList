@@ -25,10 +25,23 @@ function MobileCategories(props) {
       .then(res => {
         setListTitleArray(res.data)
       })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
+      })
     axios.get(`/lists/getsharedlists/${props.userId}`)
       .then(res => {
-        console.log(res)
         setSharedList(res.data)
+      })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
       })
   }, [props.userId])
 
@@ -56,6 +69,13 @@ function MobileCategories(props) {
           })
           setAddCategory('')
         })
+        .catch(error => {
+          console.log({
+            error, 
+            'error status': error.response.status, 
+            'error response': error.response.data
+          })
+        })
     }
   }
 
@@ -68,6 +88,13 @@ function MobileCategories(props) {
         setListTitleArray(res.data)
       })
     })
+    .catch(error => {
+      console.log({
+        error, 
+        'error status': error.response.status, 
+        'error response': error.response.data
+      })
+    })
   }
 
   function handleDeleteSharedClick(event) {
@@ -77,6 +104,13 @@ function MobileCategories(props) {
     axios.post(`/lists/removesharedlist/${deleteThisSharedItem}`, user)
       .then(res => {
         setSharedList(res.data.sharedWith)
+      })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
       })
   }
 

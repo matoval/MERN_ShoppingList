@@ -27,11 +27,15 @@ function Login(props) {
 
     axios.post('/users/login', user, { withCredentials: true} )
       .then(res => {
-        if (res.data === 'Authentication failed' || res.data === 'Authentication failed'){
-          alert('Authentication failed')
-        } else {
-          props.loggedIn(res.data)
-        }
+        props.loggedIn(res.data)
+      })
+      .catch(error => {
+        console.log({
+          error, 
+          'error status': error.response.status, 
+          'error response': error.response.data
+        })
+        alert('Authentication failed')
       })
   }
 
