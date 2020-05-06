@@ -74,6 +74,27 @@ router.route('/login').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
+router.route('/logout').get((req, res) => {
+  getAccess = req.cookies.accessToken
+  if (getAccess !== undefined) {
+    const decoded = jwt.verify(getAccess, process.env.JWT_ACCESS_SECRET)
+    User.findById(decoded.userId)
+      .select("-hashPW")
+      .then(user => {
+        const refreshToken = makeRefreshToken(user)
+        const accessToken = makeAccessToken(user)
+
+        res.setHeader('Cache-Control', 'private')
+        res.cookie('refreshToken', refreshToken, { maxAge: 0, httpOnly: true})
+        res.cookie('accessToken', accessToken, { maxAge:  0, httpOnly: true })
+        res.status(200).send('User logged out')
+      })
+      .catch(err => res.status(400).json('Error: ' + err))
+  } else {
+    res.json('No Authentication')
+  }
+})
+
 router.route('/stayloggedin').get((req, res) => {
   getAccess = req.cookies.accessToken
   if (getAccess !== undefined) {

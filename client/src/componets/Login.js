@@ -11,7 +11,6 @@ function Login(props) {
   }
 
   function handleKeyDown(event) {
-    console.log(event.keyCode)
     if(event.keyCode === 13) {
       handleSubmit(event)
     }
@@ -25,7 +24,7 @@ function Login(props) {
       password
     }
 
-    axios.post('/users/login', user, { withCredentials: true} )
+    axios.post('/users/login', user)
       .then(res => {
         props.loggedIn(res.data)
       })
