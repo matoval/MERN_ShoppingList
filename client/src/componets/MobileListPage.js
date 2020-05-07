@@ -10,7 +10,6 @@ function MobileListPage(props) {
   const [addItem, setAddItem] = useState('')
 
   useEffect(() => {
-    console.log(props.listId)
     axios.get(`/lists/${props.listId}`)
     .then(res => {
       setListArray(res.data.list)
