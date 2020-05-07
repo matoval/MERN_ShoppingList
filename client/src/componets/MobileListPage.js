@@ -59,10 +59,9 @@ function MobileListPage(props) {
   }
 
   function handleDeleteClick(event) {
-    const deleteThisListItem = event.currentTarget.dataset.value
+    const deleteThisListItem = {del: event.currentTarget.dataset.value}
     const category = props.listId
-
-    axios.post(`/lists/delete/${deleteThisListItem}`, category)
+    axios.post(`/lists/delete/${category}`, deleteThisListItem)
       .then(res => {
         setListArray(res.data.list)
       })
