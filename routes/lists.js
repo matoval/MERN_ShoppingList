@@ -51,7 +51,7 @@ router.route('/delete/:id').post((req, res) => {
 
 router.route('/update/:id').post((req, res) => {
   const newListItem = {title: req.body.title, isChecked: false}
-  List.findOneAndUpdate(req.params.id, {$push: {list: [newListItem]}}, {new: true})
+  List.findByIdAndUpdate(req.params.id, {$push: {list: [newListItem]}}, {new: true})
     .then(category => res.json(category.list))
     .catch(err => res.status(400).json('Error: ' + err))
 })
