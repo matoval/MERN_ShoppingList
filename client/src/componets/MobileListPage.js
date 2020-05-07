@@ -108,7 +108,7 @@ function MobileListPage(props) {
           onChange={e => setAddItem(e.target.value)}
           onKeyDown={handleKeyDown} 
           value={addItem}
-          placeholder="Add a Category">
+          placeholder="Add a List Item">
         </input>
       </li> 
       { listArray.length !== 0 ? 
