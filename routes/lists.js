@@ -44,7 +44,7 @@ router.route('/:id').delete((req, res) => {
 })
 
 router.route('/delete/:id').post((req, res) => {
-  List.findOneAndUpdate(req.body.category, {$pull: {list: {_id: req.params.id}}}, {new: true})
+  List.findbyIdAndUpdate(req.body.category, {$pull: {list: {_id: req.params.id}}}, {new: true})
     .then(cat=> res.json(cat))
     .catch(err => res.status(400).json('Error: ' + err))
 })
