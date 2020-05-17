@@ -108,7 +108,7 @@ function Signup(props) {
         required 
       /><br />
       </label><br />
-      <button value="Signup" onClick={openLogin}>Login</button>
+      <button value="Signup" onClick={openLogin}>Cancel</button>
       <button id="signup-btn" type="submit" value="Signup">Signup</button>
     </form>
   )

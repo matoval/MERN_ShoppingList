@@ -3,6 +3,7 @@ import './App.css'
 import Nav from './componets/Nav'
 import Login from './componets/Login'
 import Signup from './componets/Signup'
+import DesktopList from './componets/DesktopList'
 import MobileCategories from './componets/MobileCategories'
 import MobileListPage from './componets/MobileListPage'
 import Account from './componets/Account'
@@ -18,7 +19,8 @@ function App() {
   const [user, setUser] = useState({
     userId: null,
     displayName: null,
-    userEmail: null
+    userEmail: null,
+    authentication: null,
   })
 
   function loggedIn(data) {
@@ -64,8 +66,14 @@ function App() {
       setPages('loginPage')
     } else if (user.userId !== null && isMobile === true) {
       setPages('mobileCategoryPage')
+      setUser(prevState => {
+        return {...prevState, authentication: true}
+      })
     } else if (user.userId !== null && isMobile === false) {
       setPages('desktopListPage')
+      setUser(prevState => {
+        return {...prevState, authentication: true}
+      })
     }
   }, [user.userId, isMobile])
 
@@ -74,6 +82,11 @@ function App() {
     .then(res => {
       if (res.data === 'No Authentication'){
         console.log(res.data)
+        if (res.data === 'No Authentication') {
+          setUser(prevState => {
+            return {...prevState, authentication: false}
+          })
+        }
       } else {
         loggedIn(res.data)
       }
@@ -93,10 +106,11 @@ function App() {
 
   return (
     <div className="App">
-      <Nav isMobile={isMobile} openNextPage={openNextPage} />
+      <Nav isMobile={isMobile} {...user} setUser={setUser} openNextPage={openNextPage} />
       { pages === 'loginPage' ? <Login userId={user.userId} openNextPage={openNextPage} loggedIn={loggedIn} /> : null }
       { pages === 'signupPage' ? <Signup openNextPage={openNextPage} /> : null }
-      { pages === 'mobileCategoryPage' ? <MobileCategories {...user} openNextPage={openNextPage} setListId={setListId} /> : null }
+      { pages === 'desktopListPage' ? <DesktopList {...user} openNextPage={openNextPage} setListId={setListId} listId={listId} /> : null}
+      { pages === 'mobileCategoryPage' ? <MobileCategories {...user} openNextPage={openNextPage} setListId={setListId} isMobile={isMobile} /> : null }
       { pages === 'mobileListPage' ? <MobileListPage {...user} openNextPage={openNextPage} listId={listId} /> : null }
       { pages === 'accountPage' ? <Account {...user} /> : null }
     </div>

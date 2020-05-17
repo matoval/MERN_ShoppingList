@@ -116,7 +116,9 @@ function MobileCategories(props) {
 
   function handleCategoryClick(event) {
     props.setListId(event.target.dataset.value)
-    props.openNextPage('mobileListPage')
+    if (props.isMobile) {
+      props.openNextPage('mobileListPage')
+    }
   }
 
   function handleShareClick(list) {

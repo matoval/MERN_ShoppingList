@@ -1,0 +1,16 @@
+.desktop-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.category-div {
+  grid-column: 1/2;
+  background-color: rgb(34, 32, 36);
+  box-shadow: 2px 2px 8px rgb(0, 0, 0);
+  min-height: 100vh;
+}
+
+.list-div {
+  grid-column: 2/5;
+}
+
