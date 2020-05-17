@@ -50,7 +50,7 @@ router.route('/add').post((req, res) => {
 router.route('/login').post((req, res) => {
   const email = req.body.email
   const password = req.body.password
-
+  console.log(email, password)
   User.findOne({email: email})
     .then(user => {
       if(!user) {

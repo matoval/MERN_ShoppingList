@@ -1,6 +1,6 @@
 .main-nav {
   max-width: 100vw;
-  background-color: #8033FF;
+  background-color: var(--accent);
   display: grid;
   grid-template-columns: repeat(12, 1fr); 
 }
@@ -13,6 +13,19 @@
 
 .main-menu {
   grid-column: 1/5;
+}
+
+.main-accent-color {
+  grid-column: 11/12;
+  color: var(--font-color);
+  font-size: .8rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+.main-accent-color input {
+  cursor: pointer;
 }
 
 .main-title h1 {
@@ -42,11 +55,25 @@
 .mobile-menu {
   width: 100vw;
   padding: 10px 0;
-  background-color: #8033FF;
+  background-color: var(--accent);
   display: flex;
   justify-content: space-evenly;
   position: fixed;
   bottom: 0;
 }
 
+input {
+  border-radius: 10px;
 
+}
+
+.accent-color {
+  color: var(--font-color);
+  font-size: .8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.accent-color input {
+  cursor: pointer;
+}

@@ -8,6 +8,12 @@ function Signup(props) {
   const [password, setPassword] = useState('')
   const [passwordCheck, setPasswordCheck] = useState('')
 
+  function handleKeyDown(event) {
+    if(event.keyCode === 13) {
+      handleSubmit(event)
+    }
+  }
+
   function checkSamePassword(event) {
     const value = event.target.value
     if (value === password) {
@@ -30,19 +36,18 @@ function Signup(props) {
         email,
         password
       }
-      console.log(user)
       axios.post('/users/add', user)
         .then(res => {
           console.log(res)
           if (res.status === 200) {
-            const newCategory = {
-              creator: res.data,
-              sharedWith: [],
-              categoryArray: []
+            console.log('got here')
+            const user = {
+              email,
+              password
             }
-            axios.post('/category/add', newCategory)
+            axios.post('/users/login', user)
               .then(res => {
-                console.log(res)
+                props.loggedIn(res.data)
               })
               .catch(error => {
                 console.log({
@@ -50,6 +55,7 @@ function Signup(props) {
                   'error status': error.response.status, 
                   'error response': error.response.data
                 })
+                alert('Authentication failed')
               })
           }
         })
@@ -67,7 +73,7 @@ function Signup(props) {
   }
 
   return (
-    <form className="signup" onSubmit={handleSubmit}>
+    <form className="signup" onKeyDown={handleKeyDown} onSubmit={handleSubmit}>
       <h3 className="signup-title">Signup</h3> 
       <label>
         Display Name:<br />

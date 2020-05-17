@@ -26,7 +26,7 @@
 }
 
 #signup-btn {
-  background-color: #8033FF;
+  background-color: var(--accent);
 }
 
 .signup label {

@@ -16,7 +16,7 @@
 
 
 .add-categories-item {
-  background-color: #8033FF;
+  background-color: var(--accent);
   border: none;
   border-radius: 10px;
   height: 35px;
@@ -36,7 +36,7 @@
 
 .add-categories-item input {
   color: white;
-  background-color: #8033FF;
+  background-color: var(--accent);
   border: none;
   width: 165px;
   border-radius: 10px;

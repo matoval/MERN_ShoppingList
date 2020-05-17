@@ -4,12 +4,17 @@ import Nav from './componets/Nav'
 import Login from './componets/Login'
 import Signup from './componets/Signup'
 import DesktopList from './componets/DesktopList'
+import DesktopHome from './componets/DesktopHome'
 import MobileCategories from './componets/MobileCategories'
 import MobileListPage from './componets/MobileListPage'
 import Account from './componets/Account'
 import axios from 'axios'
 
 function App() {
+  const [accentColor, setAccentColor] = useState(function getInitialState() {
+    const rootAccentColor = getComputedStyle(document.body).getPropertyValue('--accent')
+    return rootAccentColor
+  })
   const [pages, setPages] = useState('')
   const [listId, setListId] = useState('')
   const [isMobile, setIsMobile] = useState(function getInitialState() {
@@ -39,6 +44,10 @@ function App() {
   function getWidth() {
     setIsMobile((window.innerWidth < 700))
   }
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--accent', accentColor)
+  }, [accentColor])
 
   useEffect(() => {
     if(user.userId != null) {
@@ -106,10 +115,12 @@ function App() {
 
   return (
     <div className="App">
-      <Nav isMobile={isMobile} {...user} setUser={setUser} openNextPage={openNextPage} />
-      { pages === 'loginPage' ? <Login userId={user.userId} openNextPage={openNextPage} loggedIn={loggedIn} /> : null }
-      { pages === 'signupPage' ? <Signup openNextPage={openNextPage} /> : null }
-      { pages === 'desktopListPage' ? <DesktopList {...user} openNextPage={openNextPage} setListId={setListId} listId={listId} /> : null}
+      <Nav isMobile={isMobile} {...user} setUser={setUser} openNextPage={openNextPage} accentColor={accentColor} setAccentColor={setAccentColor} />
+      { pages === 'loginPage' && isMobile === true ? <Login userId={user.userId} openNextPage={openNextPage} loggedIn={loggedIn} /> : null }
+      { pages === 'loginPage' && isMobile === false ? <DesktopHome pages={pages} userId={user.userId} openNextPage={openNextPage} loggedIn={loggedIn} /> : null }
+      { pages === 'signupPage' && isMobile ? <Signup openNextPage={openNextPage} loggedIn={loggedIn} /> : null }
+      { pages === 'signupPage' && !isMobile ? <DesktopHome pages={pages} openNextPage={openNextPage} loggedIn={loggedIn} /> : null }
+      { pages === 'desktopListPage' ? <DesktopList {...user} openNextPage={openNextPage} setListId={setListId} listId={listId} /> : null }
       { pages === 'mobileCategoryPage' ? <MobileCategories {...user} openNextPage={openNextPage} setListId={setListId} isMobile={isMobile} /> : null }
       { pages === 'mobileListPage' ? <MobileListPage {...user} openNextPage={openNextPage} listId={listId} /> : null }
       { pages === 'accountPage' ? <Account {...user} /> : null }

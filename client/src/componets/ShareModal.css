@@ -19,7 +19,7 @@
 
 .modal button {
   color: white;
-  background-color: #8033FF;
+  background-color: var(--accent);
   border: none;
   border-radius: 8px;
   font-size: 18px;
